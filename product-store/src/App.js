@@ -17,7 +17,7 @@ export default class App extends Component {
     });
     this.getProducts(category.id);
   };
-
+  //Ürünleri getir
   getProducts = (categoryId) => {
     let url = "http://localhost:3000/products";
     if (categoryId) {
@@ -27,9 +27,9 @@ export default class App extends Component {
       .then((response) => response.json())
       .then((data) => this.setState({ products: data }));
   };
-
+  //Sepete ürün eklemek
   addToCart = (product) => {
-    let newCart = this.state.cart();
+    let newCart = this.state.cart;
     var addedItem = newCart.find((c) => c.product.id === product.id);
     if (addedItem) {
       addedItem.quantity += 1;
@@ -40,13 +40,19 @@ export default class App extends Component {
     this.setState({ cart: newCart });
   };
 
+  //Sepetten ürün çıkarmak
+  removeFromCart = (product) => {
+    let newCart = this.state.cart.filter((c) => c.product.id !== product.id);
+    this.setState({ cart: newCart });
+  };
+
   render() {
     let productInfo = { title: "ProductList" };
     let categoryInfo = { title: "CategoryList" };
     return (
       <div>
         <Container>
-          <Navi cart={this.state.cart} />
+          <Navi removeFromCart={this.removeFromCart} cart={this.state.cart} />
           <Row>
             <Col xs="3">
               <CategoryList

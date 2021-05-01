@@ -7,11 +7,8 @@ import {
   Nav,
   NavItem,
   NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
 } from "reactstrap";
+import CartSummary from "./CartSummary";
 
 const Navi = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,17 +30,10 @@ const Navi = (props) => {
                 GitHub
               </NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Sepet-{this.props.cart.length}
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <CartSummary
+              removeFromCart={props.removeFromCart}
+              cart={props.cart}
+            />
           </Nav>
         </Collapse>
       </Navbar>
