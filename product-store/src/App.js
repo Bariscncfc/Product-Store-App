@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { Col, Container, Row } from "reactstrap";
+import alertify from "alertifyjs";
 import CartList from "./CartList";
 import CategoryList from "./CategoryList";
+import FormDemo2 from "./FormDemo2";
 import Navi from "./Navi";
 import NotFound from "./NotFound";
 import ProductList from "./ProductList";
@@ -41,6 +43,7 @@ export default class App extends Component {
     }
 
     this.setState({ cart: newCart });
+    alertify.success(product.productName + "sepete eklendi");
   };
 
   //Sepetten ürün çıkarmak
@@ -90,6 +93,7 @@ export default class App extends Component {
                     />
                   )}
                 />
+                <Route path="/form2" component={FormDemo2}></Route>
                 <Route component={NotFound} />
               </Switch>
             </Col>
