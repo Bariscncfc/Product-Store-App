@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { Switch, Route } from "react-router";
 import { Col, Container, Row } from "reactstrap";
+import CartList from "./CartList";
 import CategoryList from "./CategoryList";
 import Navi from "./Navi";
+import NotFound from "./NotFound";
 import ProductList from "./ProductList";
 
 export default class App extends Component {
@@ -62,12 +65,33 @@ export default class App extends Component {
               />
             </Col>
             <Col xs="9">
-              <ProductList
-                products={this.state.products}
-                addToCart={this.addToCart}
-                currentCategory={this.state.currentCategory}
-                info={productInfo}
-              />
+              <Switch>
+                <Route
+                  exact
+                  path="/"
+                  render={(props) => (
+                    <ProductList
+                      {...props}
+                      products={this.state.products}
+                      addToCart={this.addToCart}
+                      currentCategory={this.state.currentCategory}
+                      info={productInfo}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/cart"
+                  render={(props) => (
+                    <CartList
+                      {...props}
+                      cart={this.state.cart}
+                      removeFromCart={this.removeFromCart}
+                    />
+                  )}
+                />
+                <Route component={NotFound} />
+              </Switch>
             </Col>
           </Row>
         </Container>
